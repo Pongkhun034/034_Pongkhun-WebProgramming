@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handler</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello</h1>
+        <button id="clickme">Click Me</button>
+
+        <form id="loginForm" action="">
+            <p>Username :</p>
+            <input type="text" id="username">
+            <p id="errorUsername" class="error"></p>
+            <p>Password :</p>
+            <input type="password" id="password">
+            <p id="errorPassword" class="error"></p>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger" onclick="cancelForm()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("#loginForm").addEventListener("submit", function (event) {
+                let username = document.querySelector("#username").value;
+                let password = document.querySelector("#password").value;
+                let checkUsername = false;
+                let checkPassword = false;
+
+                if (username.length >= 8) {
+                    checkUsername = true;
+                } else {
+                    document.querySelector("#errorUsername").textContent = "Username must be at least 8 characters long";
+                }
+
+                if (password.length >= 8) {
+                    checkPassword = true;
+                } else {
+                    document.querySelector("#errorPassword").textContent = "Password must be at least 8 characters long";
+                }
+
+                if (checkUsername && checkPassword) {
+                    return true;
+                } else {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+        function cancelForm() {
+            document.querySelector("#username").value = "";
+            document.querySelector("#password").value = "";
+            document.querySelector("#errorUsername").textContent = "";
+            document.querySelector("#errorPassword").textContent = "";
+        }
+    </script>
+</body>
+</html>
